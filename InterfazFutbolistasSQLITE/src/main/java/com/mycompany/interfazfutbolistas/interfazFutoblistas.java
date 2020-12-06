@@ -61,6 +61,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         //Inicializacion de los botones/textBox Tabla futbolista
         BotonConfirmar.setVisible(false);
         BotonCancelar.setVisible(false);
+        jLabel6.setVisible(false);
+        DniFut.setVisible(false);
         DniFut.setEditable(false);
         NombreFut.setEditable(false);
         Apellido1Fut.setEditable(false);
@@ -79,6 +81,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         //Inicializacion de los botones/textBox Tabla Equipos
         ConfirmarEqui.setVisible(false);
         CancelarEqui.setVisible(false);
+        jLabel1.setVisible(false);
+        IdEqui.setVisible(false);
         IdEqui.setEditable(false);
         NombreEqui.setEditable(false);
         FundacionEqui.setEditable(false);
@@ -96,6 +100,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         //Inicializacion de los botones/textBox Tabla Ligas
         ConfirmarLiga.setVisible(false);
         CancelarLiga.setVisible(false);
+        jLabel14.setVisible(false);
+        IdLiga.setVisible(false);
         IdLiga.setEditable(false);
         NombreLiga.setEditable(false);
         EquiposLiga.setEditable(false);
@@ -820,11 +826,11 @@ public class interfazFutoblistas extends javax.swing.JFrame {
     
     public void mostrarTablaFut(String mat [][]){
         jTable2.setModel(new javax.swing.table.DefaultTableModel(mat, 
-                new String []{"DNI", "Nombre",}));
+                new String []{"Nombre", "Apellido1",}));
     }
     public void mostrarTablaEqui(String mat [][]){
         jTableEqui.setModel(new javax.swing.table.DefaultTableModel(mat, 
-                new String []{"ID", "Nombre"}));
+                new String []{"Nombre", "Campo"}));
     }
     public void mostrarTablaLiga(String mat [][]){
         jTableLiga.setModel(new javax.swing.table.DefaultTableModel(mat, 
@@ -856,7 +862,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         Apellido1Fut.setEditable(true);
         Apellido2Fut.setEditable(true);
         EdadFut.setEditable(true);
-        
+        jLabel6.setVisible(true);
+        DniFut.setVisible(true);
         
     }//GEN-LAST:event_BotonInsertarActionPerformed
     //Boton modificar Futbolista
@@ -873,6 +880,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         Apellido1Fut.setEditable(true);
         Apellido2Fut.setEditable(true);
         EdadFut.setEditable(true);
+        jLabel6.setVisible(false);
+        DniFut.setVisible(false);
     }//GEN-LAST:event_BotonModificarActionPerformed
     //Boton Eliminar Futbolista
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
@@ -888,6 +897,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         Apellido1Fut.setEditable(false);
         Apellido2Fut.setEditable(false);
         EdadFut.setEditable(false);
+        jLabel6.setVisible(false);
+        DniFut.setVisible(false);
     }//GEN-LAST:event_BotonEliminarActionPerformed
     //Boton Confirmar Futbolista
     private void BotonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConfirmarActionPerformed
@@ -916,6 +927,13 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             BotonModificar.setEnabled(true);
             BotonEliminar.setEnabled(true);
             insertarFut = false;
+            DniFut.setEditable(false);
+            NombreFut.setEditable(false);
+            Apellido1Fut.setEditable(false);
+            Apellido2Fut.setEditable(false);
+            EdadFut.setEditable(false);
+            jLabel6.setVisible(false);
+            DniFut.setVisible(false);
         }
         else if (modificarFut == true){
             int row = jTable2.getSelectedRow();
@@ -928,9 +946,7 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             String matriz [][] = controlador_fut.datos_fut();
             mostrarTablaFut(matriz);
             try {
-                controlador_fut.guardarFutbolistasFichero(controlador_fut.getFutbolistas(row));
-            } catch (IOException ex) {
-                Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
+                controlador_fut.ModificarFutbolista(controlador_fut.getFutbolistas(row));
             } catch (SQLException ex) {
                 Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -944,7 +960,14 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             BotonInsertar.setEnabled(true);
             BotonModificar.setEnabled(true);
             BotonEliminar.setEnabled(true);
+            DniFut.setEditable(false);
+            NombreFut.setEditable(false);
+            Apellido1Fut.setEditable(false);
+            Apellido2Fut.setEditable(false);
+            EdadFut.setEditable(false);
             modificarFut = false;
+            jLabel6.setVisible(false);
+            DniFut.setVisible(false);
         }
         else if(eliminarFut == true){
             int rowE = jTable2.getSelectedRow();
@@ -954,12 +977,12 @@ public class interfazFutoblistas extends javax.swing.JFrame {
                 }
             }
             if(EqeliminarConFk == false){
-                controlador_fut.getFutbolistas().remove(rowE);
             try {
                 controlador_fut.EliminarFut(controlador_fut.getFutbolistas(rowE));
             }   catch (SQLException ex) {
                     Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            controlador_fut.getFutbolistas().remove(rowE);
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se puede Eliminar el Futbolista, tiene clave foránea");
@@ -976,8 +999,15 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             BotonInsertar.setEnabled(true);
             BotonModificar.setEnabled(true);
             BotonEliminar.setEnabled(true);
+            DniFut.setEditable(false);
+            NombreFut.setEditable(false);
+            Apellido1Fut.setEditable(false);
+            Apellido2Fut.setEditable(false);
+            EdadFut.setEditable(false);
             eliminarFut = false;
             EqeliminarConFk = false;
+            jLabel6.setVisible(false);
+            DniFut.setVisible(false);
         }             
         
     }//GEN-LAST:event_BotonConfirmarActionPerformed
@@ -1002,6 +1032,13 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             BotonInsertar.setEnabled(true);
             BotonModificar.setEnabled(true);
             BotonEliminar.setEnabled(true);
+            DniFut.setEditable(false);
+            NombreFut.setEditable(false);
+            Apellido1Fut.setEditable(false);
+            Apellido2Fut.setEditable(false);
+            EdadFut.setEditable(false);
+            jLabel6.setVisible(false);
+            DniFut.setVisible(false);
             
     }//GEN-LAST:event_BotonCancelarActionPerformed
 
@@ -1031,6 +1068,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         SociosEqui.setEditable(true);
         ComboBoxEquipos.setVisible(true);
         DniFutb.setVisible(false);
+        jLabel1.setVisible(true);
+        IdEqui.setVisible(true);
     }//GEN-LAST:event_BotonInsertarEquiActionPerformed
     //Boton Insertar Liga
     private void BotonInsertarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInsertarLigaActionPerformed
@@ -1051,6 +1090,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         FinLiga.setEditable(true);
         ComboBoxLigas.setVisible(true);
         IdEquiposLiga.setVisible(false);
+        jLabel14.setVisible(true);
+        IdLiga.setVisible(true);
     }//GEN-LAST:event_BotonInsertarLigaActionPerformed
     //Boton Eliminar Liga
     private void BotonEliminarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarLigaActionPerformed
@@ -1067,6 +1108,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         EquiposLiga.setEditable(false);
         InicioLiga.setEditable(false);
         IdEquiposLiga.setEditable(false);
+        jLabel14.setVisible(false);
+        IdLiga.setVisible(false);
     }//GEN-LAST:event_BotonEliminarLigaActionPerformed
     //Boton Modificar Liga
     private void BotonModificarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarLigaActionPerformed
@@ -1087,6 +1130,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         FinLiga.setEditable(true);
         ComboBoxLigas.setVisible(true);
         IdEquiposLiga.setVisible(false);
+        jLabel14.setVisible(false);
+        IdLiga.setVisible(false);
         
     }//GEN-LAST:event_BotonModificarLigaActionPerformed
     //Boton Confirmar Liga
@@ -1118,6 +1163,13 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             insertarLiga = false;
             ComboBoxLigas.setVisible(false);
             IdEquiposLiga.setVisible(true);
+            jLabel14.setVisible(false);
+            IdLiga.setVisible(false);
+            NombreLiga.setEditable(false);
+            EquiposLiga.setEditable(false);
+            InicioLiga.setEditable(false);
+            FinLiga.setEditable(false);
+            ComboBoxLigas.setEditable(false);
         }
         else if (modificarLiga == true){
             int rowL = jTableLiga.getSelectedRow();
@@ -1131,9 +1183,7 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             String matriz [][] = controlador_liga.datos_liga();
             mostrarTablaLiga(matriz);
             try {
-                controlador_liga.guardarLigasFichero(controlador_liga.getLigas(rowL));
-            } catch (IOException ex) {
-                Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
+                controlador_liga.ModificarLiga(controlador_liga.getLigas(rowL));
             } catch (SQLException ex) {
                 Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1151,12 +1201,16 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             modificarLiga = false;
             ComboBoxLigas.setVisible(false);
             IdEquiposLiga.setVisible(true);
+            jLabel14.setVisible(false);
+            IdLiga.setVisible(false);
+            NombreLiga.setEditable(false);
+            EquiposLiga.setEditable(false);
+            InicioLiga.setEditable(false);
+            FinLiga.setEditable(false);
+            ComboBoxLigas.setEditable(false);
         }
         else if(eliminarLiga == true){
             int rowL = jTableLiga.getSelectedRow();
-            controlador_liga.getLigas().remove(rowL);
-            String matriz [][] = controlador_liga.datos_liga();
-            mostrarTablaLiga(matriz);
             try {
                 controlador_liga.guardarLigasFichero(controlador_liga.getLigas(rowL));
             } catch (IOException ex) {
@@ -1164,6 +1218,9 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
             }
+            controlador_liga.getLigas().remove(rowL);
+            String matriz [][] = controlador_liga.datos_liga();
+            mostrarTablaLiga(matriz);
             IdLiga.setText(null);
             NombreLiga.setText(null);
             EquiposLiga.setText(null);
@@ -1183,6 +1240,13 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             EquiposLiga.setEditable(false);
             InicioLiga.setEditable(false);
             IdEquiposLiga.setEditable(false);
+            jLabel14.setVisible(false);
+            IdLiga.setVisible(false);
+            NombreLiga.setEditable(false);
+            EquiposLiga.setEditable(false);
+            InicioLiga.setEditable(false);
+            FinLiga.setEditable(false);
+            ComboBoxLigas.setEditable(false);
         }            
     }//GEN-LAST:event_ConfirmarLigaActionPerformed
     //Boton Cancelar Liga
@@ -1206,6 +1270,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             InicioLiga.setEditable(false);
             FinLiga.setEditable(false);
             IdEquiposLiga.setEditable(false);
+            jLabel14.setVisible(false);
+            IdLiga.setVisible(false);
     }//GEN-LAST:event_CancelarLigaActionPerformed
 
     private void NombreLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreLigaActionPerformed
@@ -1258,7 +1324,14 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             insertarEqui = false;
             ComboBoxEquipos.setVisible(false);
             DniFutb.setVisible(true);
-            
+            jLabel1.setVisible(false);
+            IdEqui.setVisible(false);
+            IdEqui.setEditable(false);
+            NombreEqui.setEditable(false);
+            FundacionEqui.setEditable(false);
+            EstadioEqui.setEditable(false);
+            SociosEqui.setEditable(false);
+            DniFutb.setEditable(false);
         }
         else if (modificarEqui == true){
             int rowE = jTableEqui.getSelectedRow();
@@ -1272,9 +1345,7 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             String matriz [][] = controlador_equi.datos_equi();
             mostrarTablaEqui(matriz);
             try {
-                controlador_equi.guardarEquiposFichero(controlador_equi.getEquipos(rowE));
-            } catch (IOException ex) {
-                Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
+                controlador_equi.ModificarEquipo(controlador_equi.getEquipos(rowE));
             } catch (SQLException ex) {
                 Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1289,26 +1360,32 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             BotonInsertarEqui.setEnabled(true);
             BotonModificarEqui.setEnabled(true);
             BotonEliminarEqui.setEnabled(true);
-            insertarEqui = false;
+            modificarEqui = false;
             ComboBoxEquipos.setVisible(false);
             DniFutb.setVisible(true);
+            jLabel1.setVisible(false);
+            IdEqui.setVisible(false);
+            IdEqui.setEditable(false);
+            NombreEqui.setEditable(false);
+            FundacionEqui.setEditable(false);
+            EstadioEqui.setEditable(false);
+            SociosEqui.setEditable(false);
+            DniFutb.setEditable(false);
         }
         else if(eliminarEqui == true){
-            int rowE = jTableLiga.getSelectedRow();
+            int rowE = jTableEqui.getSelectedRow();
             for(int i = 0; i < controlador_liga.getLigas().size(); i++){
                 if(controlador_liga.getLigas(i).getId_equipos() == controlador_equi.getEquipos(rowE).getEquipo_ID()){
                     eliminarLigaFk = true;
                 }
             }
             if(eliminarLigaFk == false){
-                controlador_equi.getEquipos().remove(rowE);
                 try {
-                    controlador_equi.guardarEquiposFichero(controlador_equi.getEquipos(rowE));
-                } catch (IOException ex) {
-                    Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
+                    controlador_equi.EliminarEqui(controlador_equi.getEquipos(rowE));
                 } catch (SQLException ex) {
                     Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                controlador_equi.getEquipos().remove(rowE);
             }
             else{
                 JOptionPane.showMessageDialog(null, "No se puede Eliminar el Equipo, tiene clave foránea");
@@ -1326,10 +1403,18 @@ public class interfazFutoblistas extends javax.swing.JFrame {
             BotonInsertarEqui.setEnabled(true);
             BotonModificarEqui.setEnabled(true);
             BotonEliminarEqui.setEnabled(true);
-            insertarEqui = false;
+            IdEqui.setEditable(false);
+            NombreEqui.setEditable(false);
+            FundacionEqui.setEditable(false);
+            EstadioEqui.setEditable(false);
+            SociosEqui.setEditable(false);
+            DniFutb.setEditable(false);
+            eliminarEqui = false;
             ComboBoxEquipos.setVisible(false);
             DniFutb.setVisible(true);
             eliminarLigaFk = false;
+            jLabel1.setVisible(false);
+            IdEqui.setVisible(false);
         }
     }//GEN-LAST:event_ConfirmarEquiActionPerformed
     //Boton Cancelar Equipo
@@ -1347,6 +1432,14 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         BotonEliminarEqui.setEnabled(true);
         ComboBoxEquipos.setVisible(false);
         DniFutb.setVisible(true);
+        jLabel1.setVisible(false);
+        IdEqui.setVisible(false);
+        IdEqui.setEditable(false);
+        NombreEqui.setEditable(false);
+        FundacionEqui.setEditable(false);
+        EstadioEqui.setEditable(false);
+        SociosEqui.setEditable(false);
+        DniFutb.setEditable(false);
     }//GEN-LAST:event_CancelarEquiActionPerformed
     //Boton Eliminar Equi
     private void BotonEliminarEquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarEquiActionPerformed
@@ -1364,6 +1457,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         EstadioEqui.setEditable(false);
         SociosEqui.setEditable(false);
         DniFutb.setEditable(false);
+        jLabel1.setVisible(false);
+        IdEqui.setVisible(false);
     }//GEN-LAST:event_BotonEliminarEquiActionPerformed
     //Boton Modificar Equipo
     private void BotonModificarEquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarEquiActionPerformed
@@ -1384,6 +1479,8 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         SociosEqui.setEditable(true);
         ComboBoxEquipos.setVisible(true);
         DniFutb.setVisible(false);
+        jLabel1.setVisible(false);
+        IdEqui.setVisible(false);
     }//GEN-LAST:event_BotonModificarEquiActionPerformed
 
     private void DniFutbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DniFutbActionPerformed

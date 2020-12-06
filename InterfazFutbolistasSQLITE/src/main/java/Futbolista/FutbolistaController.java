@@ -159,11 +159,9 @@ public class FutbolistaController {
     public String[][] datos_fut(){         
         String contenido[][] = new String[getFutbolistas().size()][5];
         for(int i = 0;i < this.getFutbolistas().size();i++){             
-            contenido[i][0] = String.valueOf(this.getFutbolistas(i).getDni());
-            contenido[i][1] = String.valueOf(this.getFutbolistas(i).getNombre());
-            contenido[i][2] = String.valueOf(this.getFutbolistas(i).getApellido1()); 
-            contenido[i][3] = String.valueOf(this.getFutbolistas(i).getApellido2());             
-            contenido[i][4] = String.valueOf(this.getFutbolistas(i).getEdad());
+            contenido[i][0] = String.valueOf(this.getFutbolistas(i).getNombre());
+            contenido[i][1] = String.valueOf(this.getFutbolistas(i).getApellido1()); 
+
         }
         return contenido;
     }

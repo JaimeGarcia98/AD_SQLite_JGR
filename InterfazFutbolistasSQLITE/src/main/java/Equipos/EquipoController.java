@@ -162,9 +162,8 @@ public class EquipoController {
     public String[][] datos_equi(){         
         String contenido[][] = new String[getEquipos().size()][3];
         for(int i = 0;i < this.getEquipos().size();i++){             
-            contenido[i][0] = String.valueOf(this.getEquipos(i).getEquipo_ID());
-            contenido[i][1] = String.valueOf(this.getEquipos(i).getNombre_equipo());
-
+            contenido[i][0] = String.valueOf(this.getEquipos(i).getNombre_equipo());
+            contenido[i][1] = String.valueOf(this.getEquipos(i).getNombre_campo());
         }
         return contenido;
     }
