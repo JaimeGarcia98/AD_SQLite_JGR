@@ -834,7 +834,7 @@ public class interfazFutoblistas extends javax.swing.JFrame {
     }
     public void mostrarTablaLiga(String mat [][]){
         jTableLiga.setModel(new javax.swing.table.DefaultTableModel(mat, 
-                new String []{"ID", "Nombre"}));
+                new String []{"Nombre", "Nº Equipos"}));
     }
   
     private void Apellido2FutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Apellido2FutActionPerformed
@@ -1212,9 +1212,7 @@ public class interfazFutoblistas extends javax.swing.JFrame {
         else if(eliminarLiga == true){
             int rowL = jTableLiga.getSelectedRow();
             try {
-                controlador_liga.guardarLigasFichero(controlador_liga.getLigas(rowL));
-            } catch (IOException ex) {
-                Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
+                controlador_liga.EliminarLiga(controlador_liga.getLigas(rowL));
             } catch (SQLException ex) {
                 Logger.getLogger(interfazFutoblistas.class.getName()).log(Level.SEVERE, null, ex);
             }

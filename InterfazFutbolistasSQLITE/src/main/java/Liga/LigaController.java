@@ -130,7 +130,7 @@ public class LigaController {
                 String liga_id = rs.getString("liga_ID");
                 String nombre = rs.getString("nombre_liga");
                 int numero_equi = rs.getInt("numero_equipos");
-                String fecha_inicio = rs.getString("fecha_incio");
+                String fecha_inicio = rs.getString("fecha_inicio");
                 String fecha_fin  = rs.getString("fecha_fin");
                 String id_equipos  = rs.getString("Id_equipos");
                 Liga lig = new Liga (liga_id, nombre, numero_equi, fecha_inicio, fecha_fin, id_equipos);
@@ -161,11 +161,8 @@ public class LigaController {
     public String[][] datos_liga(){         
         String contenido[][] = new String[getLigas().size()][5];
         for(int i = 0;i < this.getLigas().size();i++){             
-            contenido[i][0] = String.valueOf(this.getLigas(i).getLiga_ID());
-            contenido[i][1] = String.valueOf(this.getLigas(i).getNombre_liga());
-            contenido[i][2] = String.valueOf(this.getLigas(i).getNumero_equipos()); 
-            contenido[i][3] = String.valueOf(this.getLigas(i).getFecha_inicio());             
-            contenido[i][4] = String.valueOf(this.getLigas(i).getFecha_fin());
+            contenido[i][0] = String.valueOf(this.getLigas(i).getNombre_liga());
+            contenido[i][1] = String.valueOf(this.getLigas(i).getNumero_equipos()); 
         }
         return contenido;
     }
